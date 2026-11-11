@@ -3,12 +3,12 @@
 @theme {
   --color-navy: #0b192c;
   --color-navy-soft: #13233f;
-  --color-ink: #0a1628;
-  --color-slate: #334155;
+  --color-ink: #0f172a;
+  --color-slate: #475569;
   --color-muted: #64748b;
-  --color-line: #e6edf5;
-  --color-surface: #f4f7fb;
-  --color-green: #00bb7f;
+  --color-line: #e2e8f0;
+  --color-surface: #f8fafc;
+  --color-green: #10b981;
   --color-teal: #0d9488;
   --color-blue: #2563eb;
   --color-purple: #7c3aed;
