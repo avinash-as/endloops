@@ -16,11 +16,11 @@ type Props = {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-navy text-white hover:bg-navy-soft shadow-soft border border-transparent',
+    'bg-gradient-to-r from-navy via-navy-soft to-blue text-white hover:shadow-glow shadow-soft border border-transparent',
   secondary:
-    'bg-gradient-to-r from-green to-teal text-white hover:opacity-95 shadow-soft border border-transparent',
+    'bg-gradient-to-r from-green via-teal to-blue text-white hover:shadow-glow shadow-soft border border-transparent',
   ghost: 'bg-transparent text-navy hover:bg-surface border border-transparent',
-  outline: 'bg-white text-navy border border-line hover:border-navy hover:bg-surface',
+  outline: 'bg-white/80 text-navy border border-line hover:border-teal hover:bg-white backdrop-blur',
 }
 
 const sizes: Record<Size, string> = {
@@ -39,7 +39,7 @@ export function Button({
   ...props
 }: Props) {
   const classes = cn(
-    'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-60 disabled:pointer-events-none',
+    'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-60 disabled:pointer-events-none',
     variants[variant],
     sizes[size],
     className,

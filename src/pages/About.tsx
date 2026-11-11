@@ -48,6 +48,34 @@ export function About() {
         </Container>
       </section>
 
+      <section className="py-20">
+        <Container>
+          <Reveal>
+            <SectionHeading
+              eyebrow="Our journey"
+              title="From a technology department to a company."
+              description="A short history of how Endloops came to be."
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-4">
+            {[
+              ['2018', 'Automation begins', 'Alkazim’s technology department starts automating financial work.'],
+              ['2022', 'Products take shape', 'Budget review and escrow audit tools are used in real engagements.'],
+              ['2024', 'Endloops is born', 'The department becomes an independent company.'],
+              ['2026', 'GCC and beyond', 'Engineering, design and quality capabilities expand.'],
+            ].map(([year, title, text], i) => (
+              <Reveal key={year} delay={i * 0.08}>
+                <Card className="h-full">
+                  <span className="text-sm font-bold text-teal">{year}</span>
+                  <h3 className="mt-3 text-lg font-semibold text-navy">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{text}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       <section className="bg-surface py-20">
         <Container>
           <Reveal>
