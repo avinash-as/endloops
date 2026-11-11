@@ -1,86 +1,159 @@
-import { CheckCircle2 } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Container } from '../components/Container'
-import { SectionHeading } from '../components/SectionHeading'
-import { Card } from '../components/Card'
+
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { solutions } from '../data/products'
+import { solutionDetails } from '../data/details'
+
+const categories = ['All', 'Audit & Assurance', 'Corporate Finance', 'Real Estate & Property']
 
 export function Solutions() {
+  const [filter, setFilter] = useState('All')
+  const filtered = filter === 'All' ? solutionDetails : solutionDetails.filter((s) => s.category === filter)
+
   return (
     <>
       <section className="relative overflow-hidden pt-12 pb-24">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-br from-green/20 via-teal/15 to-blue/20 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-green/20 via-teal/15 to-blue/20 blur-3xl" />
         <Container className="relative">
           <Reveal>
             <div className="mx-auto max-w-4xl text-center">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">End-to-end solutions</p>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">Enterprise product category A</p>
               <h1 className="text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl">
-                Complete software for a <span className="text-gradient">complete financial service.</span>
+                End-to-end <span className="text-gradient">financial solutions.</span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-                Each solution runs a whole process from start to finish, with extraction, matching, checking and
-                drafting working together inside one workspace.
+                Complete platforms designed to run entire multi-week financial processes from start to finish. Software
+                prepares every lead schedule, trial balance cross-cast and vouching pack, keeping statutory sign-off with
+                registered professionals.
               </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button to="/contact" variant="secondary" size="lg">
-                  Request a demo
-                </Button>
-                <Button to="/tools" variant="outline" size="lg">
-                  Browse standalone tools
-                </Button>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <div className="relative mx-auto mt-16 max-w-5xl rounded-[2rem] border border-line bg-white/80 p-6 shadow-soft backdrop-blur">
-              <div className="grid gap-4 md:grid-cols-3">
-                {[
-                  ['Scope', 'Define the engagement, periods and materiality.'],
-                  ['Prepare', 'Ingest documents and draft working papers automatically.'],
-                  ['Deliver', 'Finalise reports and archive the audit trail.'],
-                ].map(([t, d]) => (
-                  <div key={t} className="rounded-2xl bg-surface p-5">
-                    <p className="text-sm font-semibold text-navy">{t}</p>
-                    <p className="mt-2 text-sm text-muted">{d}</p>
-                  </div>
-                ))}
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-semibold text-navy">
+                <span className="rounded-full bg-surface px-4 py-2">5 comprehensive platforms</span>
+                <span className="rounded-full bg-surface px-4 py-2">GCC statutory compliance pre-configured</span>
+                <span className="rounded-full bg-surface px-4 py-2">Zero black-box hallucinations</span>
               </div>
             </div>
           </Reveal>
         </Container>
       </section>
 
-      <section className="py-24">
+      <section className="py-12">
         <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Our solutions"
-              title="Five services, one consistent experience."
-              description="Each one is built from the same capabilities, tuned to a specific financial process."
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            {solutions.map((s, i) => (
-              <Reveal key={s.name} delay={i * 0.06}>
-                <Card className="group h-full overflow-hidden">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green to-teal text-white">
-                        <s.icon size={22} />
-                      </div>
-                      <h3 className="text-xl font-semibold text-navy">{s.name}</h3>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-2">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setFilter(c)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                    filter === c ? 'bg-navy text-white shadow-soft' : 'bg-surface text-muted hover:bg-line/60 hover:text-navy'
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+            <Button to="/contact" variant="outline" size="sm">
+              Custom solution architecture? Talk to us
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-12">
+        <Container>
+          <div className="space-y-20">
+            {filtered.map((s, i) => (
+              <Reveal key={s.name}>
+                <div className="rounded-[2rem] border border-line bg-white p-8 shadow-card sm:p-12">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+                        {s.category} · Solution #{i + 1}
+                      </p>
+                      <h2 className="mt-3 text-3xl font-semibold text-navy">{s.name} solution</h2>
+                      <p className="mt-2 text-muted">{s.summary}</p>
                     </div>
-                    <StatusBadge status={s.status} />
+                    <Button to={`/contact?solution=${encodeURIComponent(s.name + ' Solution')}`} variant="secondary" size="sm">
+                      Request solution demo
+                    </Button>
                   </div>
-                  <p className="mt-4 text-muted leading-relaxed">{s.description}</p>
-                  <div className="mt-5 rounded-2xl bg-surface px-5 py-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal">Outcome</p>
-                    <p className="mt-1 text-sm text-navy">{s.outcome}</p>
+
+                  <div className="mt-8 grid gap-6 lg:grid-cols-2">
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-navy">Target audience</h3>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {s.audience.map((a) => (
+                          <span key={a} className="rounded-full bg-surface px-3 py-1 text-xs text-muted">
+                            {a}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">The problem it solves</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-muted">{s.problem}</p>
+                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">Statutory regulatory alignment</h3>
+                      <ul className="mt-3 space-y-2 text-sm text-muted">
+                        {s.regulatory.map((r) => (
+                          <li key={r} className="flex items-start gap-2">
+                            <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-teal" />
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-navy">Full platform overview</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-muted">{s.overview}</p>
+                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">Key system capabilities</h3>
+                      <ul className="mt-3 space-y-2 text-sm text-muted">
+                        {s.capabilities.map((c) => (
+                          <li key={c} className="flex items-start gap-2">
+                            <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-green" />
+                            {c}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </Card>
+
+                  <div className="mt-8">
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-navy">
+                      Process workflow (software prepares ↔ professional reviews)
+                    </h3>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                      {s.workflow.map((w, idx) => (
+                        <div key={w.title} className="rounded-2xl bg-surface p-5">
+                          <span className="text-xs font-bold text-teal">0{idx + 1}</span>
+                          <h4 className="mt-2 text-sm font-semibold text-navy">{w.title}</h4>
+                          <p className="mt-2 text-xs text-muted">
+                            <span className="font-semibold text-navy">Software: </span>
+                            {w.software}
+                          </p>
+                          <p className="mt-1 text-xs text-muted">
+                            <span className="font-semibold text-navy">Human: </span>
+                            {w.human}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                    {s.metrics.map((m) => (
+                      <div key={m.label} className="rounded-2xl bg-navy p-5 text-white">
+                        <p className="text-2xl font-bold">{m.value}</p>
+                        <p className="mt-1 text-xs text-white/70">{m.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex items-center gap-3 text-xs text-muted">
+                    <span className="rounded-full bg-surface px-3 py-1 font-semibold text-navy">Sample output</span>
+                    {s.sampleOutput}
+                  </div>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -90,78 +163,42 @@ export function Solutions() {
       <section className="bg-surface py-24">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="How a solution runs"
-              title="One workspace, one audit trail, one sign-off."
-              description="Whether it is a budget review or an escrow audit, the rhythm is the same."
-              align="center"
-            />
+            <div className="rounded-[2rem] bg-gradient-to-br from-navy via-navy-soft to-purple p-10 text-white shadow-soft sm:p-16">
+              <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">
+                Need a tailored solution for your firm's audit or accounting workflow?
+              </h2>
+              <p className="mt-4 max-w-2xl text-white/75">
+                Our engineering team configures custom working paper templates, chart of accounts mappings and regulatory
+                rule sets to match your exact practice guidelines.
+              </p>
+              <div className="mt-8">
+                <Button to="/contact" variant="secondary">
+                  Schedule technical consultation <ArrowRight size={16} />
+                </Button>
+              </div>
+            </div>
           </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-4">
-            {[
-              ['01', 'Scope', 'Define the engagement, periods and materiality.'],
-              ['02', 'Prepare', 'Ingest documents and draft working papers automatically.'],
-              ['03', 'Review', 'Inspect exceptions, evidence and conclusions.'],
-              ['04', 'Deliver', 'Finalise reports and archive the audit trail.'],
-            ].map(([n, t, d], i) => (
-              <Reveal key={n} delay={i * 0.08}>
-                <div className="group rounded-3xl border border-line bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-teal/40 hover:shadow-soft">
-                  <span className="text-sm font-semibold text-teal">{n}</span>
-                  <h3 className="mt-3 text-lg font-semibold text-navy">{t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{d}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </Container>
       </section>
 
       <section className="py-24">
         <Container>
           <Reveal>
-            <div className="rounded-[2rem] border border-line bg-white p-8 shadow-card sm:p-12">
-              <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div>
-                  <SectionHeading
-                    eyebrow="Solutions and tools together"
-                    title="Solutions are built from the same tools."
-                    description="A solution orchestrates standalone tools into one process. You can adopt the whole service, or start with a single tool and grow."
-                  />
-                </div>
-                <ul className="space-y-3">
-                  {[
-                    'Start with one tool and add more as your process matures.',
-                    'Graduate to an end-to-end solution when you want one workspace.',
-                    'Keep the same data, evidence and audit trail throughout.',
-                  ].map((t) => (
-                    <li key={t} className="flex items-start gap-3 text-muted">
-                      <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-teal" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button to="/tools" variant="outline">Browse standalone tools</Button>
-                <Button to="/contact" variant="secondary">Talk to us</Button>
+            <div className="rounded-[2rem] border border-line bg-white p-8 text-center shadow-card sm:p-12">
+              <h2 className="text-3xl font-semibold text-navy">Software prepares the work. Financial professionals review and decide.</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-muted">
+                Endloops never acts as an unmonitored black-box. Automated extraction and rule validation feed directly
+                into structured draft working papers, keeping final sign-off with registered accountants and auditors.
+              </p>
+              <div className="mt-8">
+                <Button to="/contact" variant="secondary">
+                  Schedule platform walkthrough
+                </Button>
               </div>
             </div>
           </Reveal>
         </Container>
       </section>
     </>
-  )
-}
-
-function StatusBadge({ status }: { status?: string }) {
-  const live = status === 'Live'
-  return (
-    <span
-      className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${
-        live ? 'bg-green/10 text-green' : 'bg-purple/10 text-purple'
-      }`}
-    >
-      {status}
-    </span>
   )
 }

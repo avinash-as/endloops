@@ -1,211 +1,226 @@
 import { useState } from 'react'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Container } from '../components/Container'
-import { SectionHeading } from '../components/SectionHeading'
-import { Card } from '../components/Card'
+
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { tools } from '../data/products'
+import { toolDetails } from '../data/details'
+
+const categories = ['All', 'Extraction & OCR', 'Verification & Matching', 'Accounting Schedules']
 
 export function Tools() {
-  const [selected, setSelected] = useState(tools[0])
+  const [filter, setFilter] = useState('All')
+  const [activeTool, setActiveTool] = useState(toolDetails[0].name)
+  const filtered = filter === 'All' ? toolDetails : toolDetails.filter((t) => t.category === filter)
 
   return (
     <>
       <section className="relative overflow-hidden pt-12 pb-24">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-br from-blue/20 via-purple/15 to-teal/20 blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-blue/20 via-purple/15 to-teal/20 blur-3xl" />
         <Container className="relative">
           <Reveal>
             <div className="mx-auto max-w-4xl text-center">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">Standalone tools</p>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">Enterprise product category B</p>
               <h1 className="text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl">
-                Focused tools. <span className="text-gradient">Each one useful on its own.</span>
+                Standalone financial <span className="text-gradient">automation tools.</span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-                Every tool solves one specific need and can be adopted without changing the rest of your
-                process. Mix and match as you grow.
+                Focused, modular utilities designed to solve a single acute financial friction point. Deploy them
+                individually into your existing audit toolkit, or connect via API directly to your ERP and general
+                ledger systems.
               </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button to="/contact" variant="secondary" size="lg">
-                  Request a demo <ArrowRight size={18} />
-                </Button>
-                <Button to="/solutions" variant="outline" size="lg">
-                  See end-to-end solutions
-                </Button>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-semibold text-navy">
+                <span className="rounded-full bg-surface px-4 py-2">6 purpose-built standalone tools</span>
+                <span className="rounded-full bg-surface px-4 py-2">Zero black-box AI hallucinations</span>
+                <span className="rounded-full bg-surface px-4 py-2">ERP and Excel interoperable</span>
               </div>
             </div>
           </Reveal>
         </Container>
       </section>
 
-      <section className="py-24">
+      <section className="py-12">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-            <Reveal>
-              <div className="space-y-2">
-                {tools.map((t) => (
-                  <button
-                    key={t.name}
-                    onClick={() => setSelected(t)}
-                    className={`flex w-full items-center gap-3 rounded-2xl border px-4 py-4 text-left transition-all ${
-                      selected.name === t.name
-                        ? 'border-navy bg-navy text-white shadow-soft'
-                        : 'border-line bg-white text-navy hover:border-navy/40 hover:bg-surface'
-                    }`}
-                    aria-pressed={selected.name === t.name}
-                  >
-                    <div
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                        selected.name === t.name ? 'bg-white/15 text-white' : 'bg-surface text-navy'
-                      }`}
-                    >
-                      <t.icon size={18} />
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-2">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setFilter(c)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                    filter === c ? 'bg-navy text-white shadow-soft' : 'bg-surface text-muted hover:bg-line/60 hover:text-navy'
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+            <Button to="/contact" variant="outline" size="sm">
+              Need API integration? Talk to our architects
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-12">
+        <Container>
+          <div className="space-y-20">
+            {filtered.map((t) => (
+              <Reveal key={t.name}>
+                <div className="rounded-[2rem] border border-line bg-white p-8 shadow-card sm:p-12">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+                        {t.category} · Tool
+                      </p>
+                      <h2 className="mt-3 text-3xl font-semibold text-navy">{t.name}</h2>
+                      <p className="mt-2 text-muted">{t.summary}</p>
                     </div>
-                    <div className="min-w-0">
-                      <p className="font-semibold">{t.name}</p>
-                      <p className={`truncate text-xs ${selected.name === t.name ? 'text-white/70' : 'text-muted'}`}>
-                        {t.outcome}
+                    <div className="flex flex-col items-start gap-3 lg:items-end">
+                      <span className="rounded-full bg-green/10 px-4 py-2 text-sm font-semibold text-green">{t.metric}</span>
+                      <Button to={`/contact?tool=${encodeURIComponent(t.name)}`} variant="secondary" size="sm">
+                        Request tool access
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 grid gap-6 lg:grid-cols-2">
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-navy">Core functionality</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-muted">{t.core}</p>
+                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">Key capabilities and controls</h3>
+                      <ul className="mt-3 space-y-2 text-sm text-muted">
+                        {t.capabilities.map((c) => (
+                          <li key={c} className="flex items-start gap-2">
+                            <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-green" />
+                            {c}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-sm font-semibold uppercase tracking-wide text-navy">Supported input ingestion formats</h3>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {t.inputs.map((i) => (
+                            <span key={i} className="rounded-full bg-surface px-3 py-1 text-xs text-muted">
+                              {i}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold uppercase tracking-wide text-navy">Export and output destinations</h3>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {t.outputs.map((o) => (
+                            <span key={o} className="rounded-full bg-surface px-3 py-1 text-xs text-muted">
+                              {o}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted">
+                        <span className="font-semibold text-navy">Audit trail guarantee: </span>
+                        Every extracted line item links to its source coordinate bounding box for click-through validation.
                       </p>
                     </div>
-                  </button>
-                ))}
-              </div>
-            </Reveal>
+                  </div>
 
-            <Reveal delay={0.1}>
-              <Card className="p-8">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green to-teal text-white">
-                    <selected.icon size={22} />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-semibold text-navy">{selected.name}</h2>
-                    <p className="text-sm text-muted">{selected.status}</p>
-                  </div>
-                </div>
-                <p className="mt-6 text-lg leading-relaxed text-muted">{selected.description}</p>
-                <div className="mt-6 rounded-2xl bg-surface px-5 py-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal">Outcome</p>
-                  <p className="mt-1 text-navy">{selected.outcome}</p>
-                </div>
-                <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                  {[
-                    'Works on its own',
-                    'No change to your wider process',
-                    'Output ready for review',
-                    'Evidence linked to source',
-                  ].map((t) => (
-                    <div key={t} className="flex items-center gap-2 text-sm text-slate">
-                      <CheckCircle2 size={16} className="text-green" />
-                      {t}
+                  <div className="mt-8 rounded-2xl border border-line bg-surface p-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-semibold text-navy">Interactive preview</h3>
+                      <button
+                        onClick={() => setActiveTool(t.name)}
+                        className="rounded-full bg-navy px-4 py-2 text-xs font-semibold text-white"
+                      >
+                        Load preview
+                      </button>
                     </div>
-                  ))}
+                    {activeTool === t.name && (
+                      <div className="mt-5 grid gap-6 lg:grid-cols-2">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Extracted key-values</p>
+                          <div className="mt-3 space-y-2">
+                            {t.preview.map(([k, v]) => (
+                              <div key={k} className="flex items-center justify-between rounded-xl bg-white px-4 py-2 text-sm">
+                                <span className="text-muted">{k}</span>
+                                <span className="font-medium text-navy">{v}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Rule validation engine</p>
+                          <div className="mt-3 space-y-2">
+                            {t.rules.map((r) => (
+                              <div
+                                key={r.title}
+                                className={`rounded-xl px-4 py-3 text-sm ${
+                                  r.status === 'pass' ? 'bg-green/5' : 'bg-purple/5'
+                                }`}
+                              >
+                                <p className={`font-semibold ${r.status === 'pass' ? 'text-green' : 'text-purple'}`}>
+                                  {r.title}
+                                </p>
+                                <p className="mt-1 text-xs text-muted">{r.text}</p>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-4 rounded-xl bg-white px-4 py-3 text-xs text-muted">
+                            <span className="font-semibold text-navy">Generated draft output: </span>
+                            {t.draft}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </Card>
-            </Reveal>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
 
       <section className="bg-surface py-24">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <Reveal>
-              <SectionHeading
-                eyebrow="How one tool works"
-                title="Purchase-order extraction, end to end."
-                description="A single tool, walking from raw documents to a reviewed schedule."
-              />
-              <ol className="mt-8 space-y-4">
-                {[
-                  'Upload invoices and purchase orders.',
-                  'Extract supplier, totals, line items and references.',
-                  'Match against the purchase order and ledger.',
-                  'Flag mismatches, duplicates and missing items.',
-                  'Hand over a schedule ready for review.',
-                ].map((step, i) => (
-                  <li key={step} className="flex items-start gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-semibold text-white">
-                      {i + 1}
-                    </span>
-                    <span className="pt-1 text-muted">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <ExtractionVisual />
-            </Reveal>
-          </div>
+          <Reveal>
+            <div className="rounded-[2rem] bg-gradient-to-br from-navy via-navy-soft to-purple p-10 text-white shadow-soft sm:p-16">
+              <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">
+                Want to test one of these tools with your actual documents?
+              </h2>
+              <p className="mt-4 max-w-2xl text-white/75">
+                We will run a confidential sample batch of your invoices, POs or bank statements through our extraction
+                engine and present the structured working papers.
+              </p>
+              <div className="mt-8">
+                <Button to="/contact" variant="secondary">
+                  Schedule file test run <ArrowRight size={16} />
+                </Button>
+              </div>
+            </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="py-24">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="All standalone tools"
-              title="Six tools, ready to use on their own."
-              align="center"
-            />
+            <div className="rounded-[2rem] border border-line bg-white p-8 text-center shadow-card sm:p-12">
+              <h2 className="text-3xl font-semibold text-navy">Software prepares the work. Financial professionals review and decide.</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-muted">
+                Endloops never acts as an unmonitored black-box. Automated extraction and rule validation feed directly
+                into structured draft working papers, keeping final sign-off with registered accountants and auditors.
+              </p>
+              <div className="mt-8">
+                <Button to="/contact" variant="secondary">
+                  Schedule platform walkthrough
+                </Button>
+              </div>
+            </div>
           </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {tools.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.05}>
-                <Card className="h-full">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-navy">
-                      <t.icon size={18} />
-                    </div>
-                    <h3 className="font-semibold text-navy">{t.name}</h3>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">{t.description}</p>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Button to="/contact" variant="secondary" size="lg">
-              Request a demo <ArrowRight size={18} />
-            </Button>
-          </div>
         </Container>
       </section>
     </>
-  )
-}
-
-function ExtractionVisual() {
-  const rows = [
-    ['Invoice 001', 'AED 12,400', 'Matched'],
-    ['Invoice 002', 'AED 8,920', 'Matched'],
-    ['Invoice 003', 'AED 3,180', 'Variance'],
-    ['Invoice 004', 'AED 14,750', 'Matched'],
-  ]
-  return (
-    <Card className="p-6">
-      <div className="flex items-center justify-between">
-        <p className="font-semibold text-navy">Extraction run</p>
-        <span className="rounded-full bg-green/10 px-3 py-1 text-xs font-semibold text-green">4 documents</span>
-      </div>
-      <div className="mt-5 space-y-3">
-        {rows.map(([name, amount, status]) => (
-          <div key={name} className="flex items-center justify-between rounded-2xl bg-surface px-4 py-3">
-            <div>
-              <p className="text-sm font-medium text-navy">{name}</p>
-              <p className="text-xs text-muted">{amount}</p>
-            </div>
-            <span
-              className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-                status === 'Matched' ? 'bg-green/10 text-green' : 'bg-purple/10 text-purple'
-              }`}
-            >
-              {status}
-            </span>
-          </div>
-        ))}
-      </div>
-    </Card>
   )
 }
