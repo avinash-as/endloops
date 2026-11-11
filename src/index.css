@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0b1f3a;
+  --color-navy-soft: #12305a;
+  --color-ink: #0a1628;
+  --color-slate: #475569;
+  --color-muted: #64748b;
+  --color-line: #e2e8f0;
+  --color-surface: #f8fafc;
+  --color-green: #12b76a;
+  --color-teal: #0ea5a4;
+  --color-blue: #2563eb;
+  --color-purple: #7c3aed;
+  --color-white: #ffffff;
+
+  --font-sans: "Manrope", "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Sora", "Manrope", system-ui, sans-serif;
+
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+  --shadow-soft: 0 20px 60px -30px rgba(11, 31, 58, 0.35);
+  --shadow-card: 0 12px 40px -24px rgba(11, 31, 58, 0.28);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-ink font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-teal;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(11,31,58,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11,31,58,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .bg-radial {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(18,183,106,0.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 20%, rgba(37,99,235,0.14), transparent 55%),
+      radial-gradient(700px 400px at 90% 70%, rgba(124,58,237,0.12), transparent 60%);
+  }
+}
