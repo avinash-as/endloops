@@ -1,19 +1,26 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, Layers3, Wrench, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Layers3, Wrench, Sparkles, ShieldCheck, FileText, GitCompare, PackageCheck } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Container } from '../components/Container'
 import { SectionHeading } from '../components/SectionHeading'
 import { Card } from '../components/Card'
 import { Button } from '../components/Button'
 import { Reveal } from '../components/Reveal'
-import { solutions, tools, capabilities } from '../data/products'
+import { solutions, tools } from '../data/products'
 
-const tabs = [
+const capabilities = [
+  { title: 'Read documents', text: 'Extract figures and details from invoices, purchase orders, contracts and statements.', icon: FileText },
+  { title: 'Compare and match', text: 'Check documents against ledgers, or quotes against each other.', icon: GitCompare },
+  { title: 'Check against rules', text: 'Flag missing items, mismatched totals, duplicates and out-of-limit values.', icon: ShieldCheck },
+  { title: 'Prepare drafts', text: 'Produce schedules, working papers and reports ready for review.', icon: Layers3 },
+  { title: 'Handle bulk work', text: 'Process hundreds of documents at once, without losing traceability.', icon: PackageCheck },
+]
+
+const demoTabs = [
   {
     id: 'extract',
     label: 'Extract',
-    title: 'Pull every figure out of unstructured documents.',
     rows: [
       ['Supplier', 'Al Noor Supplies', 'Matched'],
       ['Invoice no.', 'INV-2418', 'Matched'],
@@ -24,7 +31,6 @@ const tabs = [
   {
     id: 'match',
     label: 'Match',
-    title: 'Match documents against ledgers and purchase orders.',
     rows: [
       ['Invoice 001', 'AED 12,400', 'Matched'],
       ['Invoice 002', 'AED 8,920', 'Matched'],
@@ -35,7 +41,6 @@ const tabs = [
   {
     id: 'check',
     label: 'Check',
-    title: 'Flag missing items, duplicates and out-of-limit values.',
     rows: [
       ['Missing receipt', '3 items', 'Flagged'],
       ['Duplicate invoice', '1 found', 'Flagged'],
@@ -46,58 +51,108 @@ const tabs = [
 ]
 
 export function Home() {
-  const [active, setActive] = useState(tabs[0].id)
-  const tab = tabs.find((t) => t.id === active)!
+  const [active, setActive] = useState(demoTabs[0].id)
+  const tab = demoTabs.find((t) => t.id === active)!
 
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-        <div className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-green/20 blur-3xl animate-pulse-soft" />
-        <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-blue/15 blur-3xl animate-pulse-soft" />
-        <div className="pointer-events-none absolute bottom-0 right-1/3 h-64 w-64 rounded-full bg-purple/15 blur-3xl animate-pulse-soft" />
+      <section className="relative overflow-hidden pt-12 pb-24">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-br from-green/25 via-teal/20 to-blue/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 top-40 h-72 w-72 rounded-full bg-purple/20 blur-3xl animate-pulse-soft" />
+        <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-green/20 blur-3xl animate-pulse-soft" />
 
-        <Container className="relative grid items-center gap-14 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
+        <Container className="relative">
           <Reveal>
-            <div className="inline-flex items-center gap-2 rounded-full border border-line bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal shadow-card backdrop-blur">
-              <Sparkles size={14} />
-              Automation for financial professionals
-            </div>
-            <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.02] text-navy sm:text-5xl lg:text-6xl">
-              Finance work, <span className="text-gradient">prepared by software.</span>
-              <br />
-              Decisions, made by people.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Endloops takes the repetitive, time-sensitive work out of accounting, audit and property
-              finance — extraction, matching, checking and drafting — so professionals can spend their
-              time on judgement, and on clients.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button to="/solutions" variant="secondary" size="lg">
-                Explore solutions <ArrowRight size={18} />
-              </Button>
-              <Button to="/contact" variant="outline" size="lg">
-                Talk to us
-              </Button>
-            </div>
-            <div className="mt-10 grid max-w-xl grid-cols-3 gap-4">
-              {[
-                ['5', 'end-to-end solutions'],
-                ['6', 'standalone tools'],
-                ['100s', 'documents at once'],
-              ].map(([n, l]) => (
-                <div key={l} className="rounded-2xl border border-line bg-white/70 p-4 backdrop-blur">
-                  <p className="text-2xl font-bold text-navy">{n}</p>
-                  <p className="mt-1 text-xs text-muted">{l}</p>
-                </div>
-              ))}
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-teal shadow-card backdrop-blur">
+                <Sparkles size={14} />
+                Automation for financial professionals
+              </div>
+              <h1 className="mt-8 text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl lg:text-7xl">
+                Finance work, <span className="text-gradient">prepared by software.</span>
+                <br />
+                Decisions, made by people.
+              </h1>
+              <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted">
+                Endloops takes the repetitive, time-sensitive work out of accounting, audit and property
+                finance — extraction, matching, checking and drafting — so professionals can spend their
+                time on judgement, and on clients.
+              </p>
+              <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button to="/solutions" variant="secondary" size="lg">
+                  Explore solutions <ArrowRight size={18} />
+                </Button>
+                <Button to="/contact" variant="outline" size="lg">
+                  Talk to us
+                </Button>
+              </div>
             </div>
           </Reveal>
 
-          <Reveal delay={0.15}>
-            <HeroPreview />
+          {/* Product mockup */}
+          <Reveal delay={0.2}>
+            <div className="relative mx-auto mt-20 max-w-5xl" style={{ perspective: '1400px' }}>
+              <motion.div
+                initial={{ rotateX: 18, opacity: 0, y: 40 }}
+                animate={{ rotateX: 8, opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className="relative rounded-[2rem] border border-line bg-white/80 p-3 shadow-soft backdrop-blur"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+                  <span className="h-3 w-3 rounded-full bg-red-400" />
+                  <span className="h-3 w-3 rounded-full bg-amber-400" />
+                  <span className="h-3 w-3 rounded-full bg-green" />
+                  <span className="ml-4 text-xs font-medium text-muted">endloops.app / purchase-order-extraction</span>
+                </div>
+                <div className="grid gap-4 p-5 lg:grid-cols-[1.2fr_0.8fr]">
+                  <div className="rounded-2xl bg-surface p-5">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy text-white">
+                        <Layers3 size={20} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-navy">invoice_2418.pdf</p>
+                        <p className="text-xs text-muted">12 line items detected</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 space-y-2">
+                      {[
+                        ['Vendor', 'Al Noor Supplies'],
+                        ['Invoice no.', 'INV-2418'],
+                        ['Total', 'AED 48,250.00'],
+                        ['PO match', 'PO-2418 · matched'],
+                      ].map(([k, v]) => (
+                        <div key={k} className="flex items-center justify-between rounded-xl bg-white px-3 py-2 text-sm">
+                          <span className="text-muted">{k}</span>
+                          <span className="font-medium text-navy">{v}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <div className="rounded-2xl bg-gradient-to-br from-green/10 to-teal/10 p-5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-teal">Processing time</p>
+                      <p className="mt-2 text-3xl font-bold text-navy">1.8s</p>
+                    </div>
+                    <div className="rounded-2xl bg-gradient-to-br from-blue/10 to-purple/10 p-5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-blue">Accuracy</p>
+                      <p className="mt-2 text-3xl font-bold text-navy">99.2%</p>
+                    </div>
+                    <motion.div
+                      className="flex items-center gap-2 rounded-2xl border border-green/20 bg-green/5 px-4 py-3 text-sm font-medium text-green"
+                      animate={{ opacity: [0.75, 1, 0.75] }}
+                      transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      <CheckCircle2 size={18} /> Ready for review
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+              <div className="pointer-events-none absolute -inset-8 -z-10 rounded-[2.5rem] bg-gradient-to-br from-green/20 via-teal/10 to-purple/20 blur-3xl" />
+            </div>
           </Reveal>
         </Container>
       </section>
@@ -119,32 +174,34 @@ export function Home() {
         </Container>
       </section>
 
-      {/* Problem */}
+      {/* Bento capabilities */}
       <section className="py-24">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <Reveal>
-              <SectionHeading
-                eyebrow="The need we address"
-                title="Too much of a finance professional's day goes to work software can handle."
-                description="It is repetitive and time-sensitive, leaves room for error, and pulls attention away from judgement and from clients."
-              />
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  ['Repetitive', 'The same extraction, matching and checking, repeated across hundreds of documents.'],
-                  ['Time-sensitive', 'Deadlines do not move, even when the volume does.'],
-                  ['Error-prone', 'Manual work leaves room for missed items and mismatched totals.'],
-                  ['Distracting', 'It takes attention away from the judgement only people can provide.'],
-                ].map(([title, text]) => (
-                  <Card key={title} className="h-full">
-                    <h3 className="text-lg font-semibold text-navy">{title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{text}</p>
-                  </Card>
-                ))}
-              </div>
-            </Reveal>
+          <Reveal>
+            <SectionHeading
+              eyebrow="What our technology can do"
+              title="Five capabilities behind every product."
+              description="The same building blocks, applied to different financial workflows."
+            />
+          </Reveal>
+          <div className="mt-14 grid gap-4 md:grid-cols-6">
+            {capabilities.map((c, i) => (
+              <Reveal key={c.title} delay={i * 0.06}>
+                <Card
+                  className={`h-full ${
+                    i === 0 ? 'md:col-span-3' : i === 1 ? 'md:col-span-3' : 'md:col-span-2'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green/15 via-teal/15 to-blue/15 text-teal">
+                      <c.icon size={22} />
+                    </div>
+                    <h3 className="text-lg font-semibold text-navy">{c.title}</h3>
+                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-muted">{c.text}</p>
+                </Card>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -187,34 +244,8 @@ export function Home() {
         </Container>
       </section>
 
-      {/* Capabilities */}
-      <section className="bg-surface py-24">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="What our technology can do"
-              title="Five capabilities behind every product."
-              description="The same building blocks, applied to different financial workflows."
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {capabilities.map((c, i) => (
-              <Reveal key={c.title} delay={i * 0.06}>
-                <Card className="h-full text-center">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green/15 via-teal/15 to-blue/15 text-teal">
-                    <c.icon size={24} />
-                  </div>
-                  <h3 className="mt-5 text-base font-semibold text-navy">{c.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.description}</p>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* Interactive demo */}
-      <section className="py-24">
+      <section className="bg-surface py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <Reveal>
@@ -224,21 +255,23 @@ export function Home() {
                 description="Pick a capability and watch how Endloops turns unstructured documents into structured, checked output."
               />
               <div className="mt-8 flex flex-wrap gap-2">
-                {tabs.map((t) => (
+                {demoTabs.map((t) => (
                   <button
                     key={t.id}
                     onClick={() => setActive(t.id)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
                       active === t.id
                         ? 'bg-navy text-white shadow-soft'
-                        : 'bg-surface text-muted hover:bg-line/60 hover:text-navy'
+                        : 'bg-white text-muted hover:bg-line/60 hover:text-navy'
                     }`}
                   >
                     {t.label}
                   </button>
                 ))}
               </div>
-              <p className="mt-6 text-muted leading-relaxed">{tab.title}</p>
+              <p className="mt-6 text-muted leading-relaxed">
+                Extract, match and check documents in one continuous flow.
+              </p>
               <div className="mt-8">
                 <Button to="/tools" variant="outline">
                   Explore standalone tools <ArrowRight size={16} />
@@ -418,71 +451,5 @@ function OfferingCard({
         </Link>
       </div>
     </Card>
-  )
-}
-
-function HeroPreview() {
-  return (
-    <motion.div
-      className="relative mx-auto w-full max-w-md"
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="absolute -inset-8 rounded-[2.5rem] bg-gradient-to-br from-green/25 via-teal/15 to-purple/25 blur-2xl animate-pulse-soft" />
-      <div className="relative rounded-[2rem] border border-line bg-white/90 p-6 shadow-soft backdrop-blur">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy text-white">
-              <Layers3 size={20} />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-navy">Purchase order extraction</p>
-              <p className="text-xs text-muted">Live · 12 documents</p>
-            </div>
-          </div>
-          <span className="rounded-full bg-green/10 px-3 py-1 text-xs font-semibold text-green">Live</span>
-        </div>
-        <div className="mt-5 rounded-2xl bg-surface p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy text-white">
-              <Layers3 size={18} />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-navy">invoice_2418.pdf</p>
-              <p className="text-xs text-muted">12 line items detected</p>
-            </div>
-          </div>
-          <div className="mt-4 space-y-2">
-            {[
-              ['Vendor', 'Al Noor Supplies'],
-              ['Invoice no.', 'INV-2418'],
-              ['Total', 'AED 48,250.00'],
-              ['PO match', 'PO-2418 · matched'],
-            ].map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between rounded-xl bg-white px-3 py-2 text-sm">
-                <span className="text-muted">{k}</span>
-                <span className="font-medium text-navy">{v}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <motion.div
-          className="mt-5 flex items-center gap-2 rounded-2xl border border-green/20 bg-green/5 px-4 py-3 text-sm font-medium text-green"
-          animate={{ opacity: [0.75, 1, 0.75] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <CheckCircle2 size={18} /> Ready for review
-        </motion.div>
-        <div className="absolute -right-4 top-10 rounded-2xl border border-line bg-white px-4 py-3 shadow-card animate-float">
-          <p className="text-xs text-muted">Processing time</p>
-          <p className="text-lg font-bold text-navy">1.8s</p>
-        </div>
-        <div className="absolute -left-4 bottom-16 rounded-2xl border border-line bg-white px-4 py-3 shadow-card animate-float" style={{ animationDelay: '1.5s' }}>
-          <p className="text-xs text-muted">Accuracy</p>
-          <p className="text-lg font-bold text-navy">99.2%</p>
-        </div>
-      </div>
-    </motion.div>
   )
 }

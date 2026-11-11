@@ -19,7 +19,7 @@ export function Layout() {
         Skip to content
       </a>
       <Navbar />
-      <main id="main">
+      <main id="main" className="pt-[4.5rem]">
         <Outlet />
       </main>
       <Footer />

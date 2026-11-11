@@ -3,9 +3,10 @@ import { cn } from '../lib/cn'
 type LogoProps = {
   className?: string
   markOnly?: boolean
+  tone?: 'dark' | 'light'
 }
 
-export function Logo({ className, markOnly = false }: LogoProps) {
+export function Logo({ className, markOnly = false, tone = 'dark' }: LogoProps) {
   return (
     <span className={cn('inline-flex items-center gap-3', className)} aria-label="Endloops">
       <svg
@@ -51,10 +52,10 @@ export function Logo({ className, markOnly = false }: LogoProps) {
           strokeWidth="3.2"
           strokeLinecap="round"
         />
-        <circle cx="20" cy="20" r="2.4" fill="#0b1f3a" />
+        <circle cx="20" cy="20" r="2.4" fill={tone === 'light' ? '#ffffff' : '#0b1f3a'} />
       </svg>
       {!markOnly && (
-        <span className="text-lg font-semibold tracking-tight text-navy">
+        <span className={`text-lg font-semibold tracking-tight ${tone === 'light' ? 'text-white' : 'text-navy'}`}>
           End<span className="text-teal">loops</span>
         </span>
       )}

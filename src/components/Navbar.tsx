@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import { Container } from './Container'
 import { Logo } from './Logo'
 import { Button } from './Button'
+import { Container } from './Container'
 import { cn } from '../lib/cn'
 
 const links = [
@@ -16,9 +16,22 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line/60 bg-white/75 backdrop-blur-2xl">
+    <header
+      className={cn(
+        'fixed inset-x-0 top-0 z-50 transition-all duration-300',
+        scrolled ? 'border-b border-line/70 bg-white/85 backdrop-blur-2xl' : 'bg-transparent',
+      )}
+    >
       <Container className="flex h-[4.5rem] items-center justify-between">
         <Link to="/" className="flex items-center" aria-label="Endloops home">
           <Logo />
@@ -32,7 +45,9 @@ export function Navbar() {
               className={({ isActive }) =>
                 cn(
                   'rounded-full px-4 py-2 text-sm font-semibold transition-all',
-                  isActive ? 'text-navy bg-surface shadow-card' : 'text-muted hover:text-navy hover:bg-surface/70',
+                  isActive
+                    ? 'text-navy bg-white shadow-card'
+                    : 'text-muted hover:text-navy hover:bg-white/70',
                 )
               }
               end={l.to === '/'}
@@ -49,7 +64,7 @@ export function Navbar() {
         </div>
 
         <button
-          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-navy"
+          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white/80 text-navy backdrop-blur"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -60,7 +75,7 @@ export function Navbar() {
       </Container>
 
       {open && (
-        <div id="mobile-menu" className="md:hidden border-t border-line bg-white">
+        <div id="mobile-menu" className="md:hidden border-t border-line bg-white/95 backdrop-blur-2xl">
           <Container className="flex flex-col gap-1 py-4">
             {links.map((l) => (
               <NavLink
@@ -69,7 +84,7 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-xl px-4 py-3 text-sm font-medium',
+                    'rounded-xl px-4 py-3 text-sm font-semibold',
                     isActive ? 'bg-surface text-navy' : 'text-muted hover:bg-surface/70 hover:text-navy',
                   )
                 }
