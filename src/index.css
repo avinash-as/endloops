@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0b1f3a;
-  --color-navy-soft: #132d52;
+  --color-navy: #0b192c;
+  --color-navy-soft: #13233f;
   --color-ink: #0a1628;
   --color-slate: #334155;
   --color-muted: #64748b;
@@ -13,8 +13,8 @@
   --color-blue: #2563eb;
   --color-purple: #7c3aed;
 
-  --font-sans: "Manrope", "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Sora", "Manrope", system-ui, sans-serif;
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+  --font-display: "Geist", system-ui, -apple-system, sans-serif;
 
   --radius-xl: 1.25rem;
   --radius-2xl: 1.75rem;
