@@ -39,7 +39,7 @@ export function Button({
   ...props
 }: Props) {
   const classes = cn(
-    'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal disabled:opacity-60 disabled:pointer-events-none',
+    'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 disabled:opacity-60 disabled:pointer-events-none',
     variants[variant],
     sizes[size],
     className,

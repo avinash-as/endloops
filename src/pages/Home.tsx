@@ -115,10 +115,11 @@ export function Home() {
                 <Sparkles size={14} />
                 Born inside Alkazim Dubai
               </div>
-              <h1 className="mt-8 text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl lg:text-7xl">
+              <h1 className="mt-8 text-balance text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl leading-[1.12]">
                 Software prepares the work.
-                <br />
-                <span className="text-gradient">Financial professionals review and decide.</span>
+                <span className="block mt-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-blue-600 bg-clip-text text-transparent">
+                  Financial professionals review and decide.
+                </span>
               </h1>
               <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted">
                 Eliminate repetitive document extraction, 3-way vouching and working paper preparation. Endloops
