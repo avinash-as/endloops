@@ -63,13 +63,26 @@ export function Contact() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Contact"
-        title="Talk to us about your process."
-        description="Request a demo, ask about a product, or tell us where automation could help. We reply within one business day."
-      />
+      <section className="relative overflow-hidden pt-12 pb-24">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-br from-green/20 via-teal/15 to-blue/20 blur-3xl" />
+        <Container className="relative">
+          <Reveal>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">Contact</p>
+              <h1 className="text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl">
+                Talk to us about <span className="text-gradient">your process.</span>
+              </h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+                Request a demo, ask about a product, or tell us where automation could help. We reply within one
+                business day.
+              </p>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             <Reveal>
@@ -80,9 +93,7 @@ export function Contact() {
                       <Send size={24} />
                     </div>
                     <h2 className="mt-5 text-2xl font-semibold text-navy">Message received</h2>
-                    <p className="mt-3 text-muted">
-                      Thank you. We will be in touch within one business day.
-                    </p>
+                    <p className="mt-3 text-muted">Thank you. We will be in touch within one business day.</p>
                     <Button className="mt-6" onClick={() => setSubmitted(false)} variant="outline">
                       Send another message
                     </Button>
@@ -189,11 +200,21 @@ export function Contact() {
                   </ul>
                 </Card>
                 <Card>
-                  <h3 className="text-lg font-semibold text-navy">Response time</h3>
-                  <p className="mt-2 text-sm text-muted">
-                    We aim to reply within one business day. For urgent audit support, mention your
-                    deadline in the message.
-                  </p>
+                  <h3 className="text-lg font-semibold text-navy">What happens next</h3>
+                  <ol className="mt-4 space-y-3 text-sm text-muted">
+                    {[
+                      'We review your message within one business day.',
+                      'We schedule a short call to understand your process.',
+                      'We show where automation can help, and where humans stay in charge.',
+                    ].map((s, i) => (
+                      <li key={s} className="flex items-start gap-3">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy text-xs font-semibold text-white">
+                          {i + 1}
+                        </span>
+                        {s}
+                      </li>
+                    ))}
+                  </ol>
                 </Card>
               </div>
             </Reveal>
@@ -201,14 +222,10 @@ export function Contact() {
         </Container>
       </section>
 
-      <section className="bg-surface py-20">
+      <section className="bg-surface py-24">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="Questions"
-              title="Frequently asked."
-              align="center"
-            />
+            <SectionHeading eyebrow="Questions" title="Frequently asked." align="center" />
           </Reveal>
           <div className="mx-auto mt-10 max-w-3xl">
             <Accordion items={faq} />
@@ -238,24 +255,7 @@ function Field({
 }
 
 function inputClass(error?: string) {
-  return `w-full rounded-xl border px-4 py-3 text-sm text-navy outline-none transition-colors focus:border-teal focus:ring-2 focus:ring-teal/20 ${
+  return `w-full rounded-2xl border px-4 py-3 text-sm text-navy outline-none transition-colors focus:border-teal focus:ring-2 focus:ring-teal/20 ${
     error ? 'border-purple bg-purple/5' : 'border-line bg-white'
   }`
-}
-
-function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return (
-    <section className="relative overflow-hidden bg-radial">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
-      <Container className="relative py-20 lg:py-24">
-        <Reveal>
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">{eyebrow}</p>
-          <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-tight text-navy sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{description}</p>
-        </Reveal>
-      </Container>
-    </section>
-  )
 }

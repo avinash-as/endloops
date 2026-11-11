@@ -9,29 +9,74 @@ import { solutions } from '../data/products'
 export function Solutions() {
   return (
     <>
-      <PageHero
-        eyebrow="End-to-end solutions"
-        title="Complete software for a complete financial service."
-        description="Each solution runs a whole process from start to finish, with extraction, matching, checking and drafting working together inside it."
-      />
+      <section className="relative overflow-hidden pt-12 pb-24">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-br from-green/20 via-teal/15 to-blue/20 blur-3xl" />
+        <Container className="relative">
+          <Reveal>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">End-to-end solutions</p>
+              <h1 className="text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl">
+                Complete software for a <span className="text-gradient">complete financial service.</span>
+              </h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+                Each solution runs a whole process from start to finish, with extraction, matching, checking and
+                drafting working together inside one workspace.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button to="/contact" variant="secondary" size="lg">
+                  Request a demo
+                </Button>
+                <Button to="/tools" variant="outline" size="lg">
+                  Browse standalone tools
+                </Button>
+              </div>
+            </div>
+          </Reveal>
 
-      <section className="py-20">
+          <Reveal delay={0.2}>
+            <div className="relative mx-auto mt-16 max-w-5xl rounded-[2rem] border border-line bg-white/80 p-6 shadow-soft backdrop-blur">
+              <div className="grid gap-4 md:grid-cols-3">
+                {[
+                  ['Scope', 'Define the engagement, periods and materiality.'],
+                  ['Prepare', 'Ingest documents and draft working papers automatically.'],
+                  ['Deliver', 'Finalise reports and archive the audit trail.'],
+                ].map(([t, d]) => (
+                  <div key={t} className="rounded-2xl bg-surface p-5">
+                    <p className="text-sm font-semibold text-navy">{t}</p>
+                    <p className="mt-2 text-sm text-muted">{d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="py-24">
         <Container>
-          <div className="grid gap-6 lg:grid-cols-2">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Our solutions"
+              title="Five services, one consistent experience."
+              description="Each one is built from the same capabilities, tuned to a specific financial process."
+            />
+          </Reveal>
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
             {solutions.map((s, i) => (
               <Reveal key={s.name} delay={i * 0.06}>
-                <Card className="h-full">
+                <Card className="group h-full overflow-hidden">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy text-white">
-                        <s.icon size={20} />
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green to-teal text-white">
+                        <s.icon size={22} />
                       </div>
                       <h3 className="text-xl font-semibold text-navy">{s.name}</h3>
                     </div>
                     <StatusBadge status={s.status} />
                   </div>
                   <p className="mt-4 text-muted leading-relaxed">{s.description}</p>
-                  <div className="mt-5 rounded-xl bg-surface px-4 py-3">
+                  <div className="mt-5 rounded-2xl bg-surface px-5 py-4">
                     <p className="text-xs font-semibold uppercase tracking-wide text-teal">Outcome</p>
                     <p className="mt-1 text-sm text-navy">{s.outcome}</p>
                   </div>
@@ -42,25 +87,26 @@ export function Solutions() {
         </Container>
       </section>
 
-      <section className="bg-surface py-20">
+      <section className="bg-surface py-24">
         <Container>
           <Reveal>
             <SectionHeading
               eyebrow="How a solution runs"
               title="One workspace, one audit trail, one sign-off."
               description="Whether it is a budget review or an escrow audit, the rhythm is the same."
+              align="center"
             />
           </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-4">
+          <div className="mt-14 grid gap-6 md:grid-cols-4">
             {[
-              ['Scope', 'Define the engagement, periods and materiality.'],
-              ['Prepare', 'Ingest documents and draft working papers automatically.'],
-              ['Review', 'Inspect exceptions, evidence and conclusions.'],
-              ['Deliver', 'Finalise reports and archive the audit trail.'],
-            ].map(([t, d], i) => (
-              <Reveal key={t} delay={i * 0.08}>
-                <div className="rounded-2xl border border-line bg-white p-6 shadow-card">
-                  <span className="text-sm font-semibold text-teal">0{i + 1}</span>
+              ['01', 'Scope', 'Define the engagement, periods and materiality.'],
+              ['02', 'Prepare', 'Ingest documents and draft working papers automatically.'],
+              ['03', 'Review', 'Inspect exceptions, evidence and conclusions.'],
+              ['04', 'Deliver', 'Finalise reports and archive the audit trail.'],
+            ].map(([n, t, d], i) => (
+              <Reveal key={n} delay={i * 0.08}>
+                <div className="group rounded-3xl border border-line bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-teal/40 hover:shadow-soft">
+                  <span className="text-sm font-semibold text-teal">{n}</span>
                   <h3 className="mt-3 text-lg font-semibold text-navy">{t}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{d}</p>
                 </div>
@@ -70,10 +116,10 @@ export function Solutions() {
         </Container>
       </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <Reveal>
-            <div className="rounded-3xl border border-line bg-white p-8 shadow-card sm:p-12">
+            <div className="rounded-[2rem] border border-line bg-white p-8 shadow-card sm:p-12">
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
                   <SectionHeading
@@ -104,23 +150,6 @@ export function Solutions() {
         </Container>
       </section>
     </>
-  )
-}
-
-function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return (
-    <section className="relative overflow-hidden bg-radial">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
-      <Container className="relative py-20 lg:py-24">
-        <Reveal>
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">{eyebrow}</p>
-          <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-tight text-navy sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{description}</p>
-        </Reveal>
-      </Container>
-    </section>
   )
 }
 

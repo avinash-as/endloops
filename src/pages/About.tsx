@@ -8,13 +8,26 @@ import { Reveal } from '../components/Reveal'
 export function About() {
   return (
     <>
-      <PageHero
-        eyebrow="About Endloops"
-        title="A technology department that became a company."
-        description="Endloops began inside Alkazim, an accounting and audit firm in Dubai. The software it built to automate financial work is now a company in its own right."
-      />
+      <section className="relative overflow-hidden pt-12 pb-24">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-br from-purple/20 via-blue/15 to-teal/20 blur-3xl" />
+        <Container className="relative">
+          <Reveal>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">About Endloops</p>
+              <h1 className="text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl">
+                A technology department that became a <span className="text-gradient">company.</span>
+              </h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+                Endloops began inside Alkazim, an accounting and audit firm in Dubai. The software it built to
+                automate financial work is now a company in its own right.
+              </p>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <Reveal>
@@ -24,9 +37,9 @@ export function About() {
                 description="Because Endloops grew out of an accounting and audit firm, its products are shaped by the people who actually do the work — not by assumptions about it."
               />
               <p className="mt-6 text-muted leading-relaxed">
-                The technology department at Alkazim spent years automating financial work. That
-                experience became Endloops: a company dedicated to building automation for accountants,
-                auditors, finance teams and property management companies.
+                The technology department at Alkazim spent years automating financial work. That experience became
+                Endloops: a company dedicated to building automation for accountants, auditors, finance teams and
+                property management companies.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
@@ -48,7 +61,7 @@ export function About() {
         </Container>
       </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <Reveal>
             <SectionHeading
@@ -76,7 +89,7 @@ export function About() {
         </Container>
       </section>
 
-      <section className="bg-surface py-20">
+      <section className="bg-surface py-24">
         <Container>
           <Reveal>
             <SectionHeading
@@ -105,10 +118,10 @@ export function About() {
             ].map((v, i) => (
               <Reveal key={v.title} delay={i * 0.08}>
                 <Card className="h-full text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green/15 to-teal/15 text-teal">
-                    <v.icon size={22} />
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green/15 via-teal/15 to-blue/15 text-teal">
+                    <v.icon size={24} />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-navy">{v.title}</h3>
+                  <h3 className="mt-5 text-lg font-semibold text-navy">{v.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{v.text}</p>
                 </Card>
               </Reveal>
@@ -117,39 +130,26 @@ export function About() {
         </Container>
       </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="Where we are heading"
-              title="Growing engineering, design and quality to serve the GCC and beyond."
-              description="Endloops is a young company with a clear ambition: to become the trusted automation partner for accounting, audit and property finance teams in the GCC region and beyond."
-            />
+            <div className="rounded-[2rem] bg-gradient-to-br from-navy via-navy-soft to-purple p-10 text-white shadow-soft sm:p-16">
+              <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">
+                Growing engineering, design and quality to serve the GCC and beyond.
+              </h2>
+              <p className="mt-4 max-w-2xl text-white/75">
+                Endloops is a young company with a clear ambition: to become the trusted automation partner for
+                accounting, audit and property finance teams in the GCC region and beyond.
+              </p>
+              <div className="mt-8">
+                <Button to="/contact" variant="secondary">
+                  Talk to us <ArrowRight size={16} />
+                </Button>
+              </div>
+            </div>
           </Reveal>
-          <div className="mt-10">
-            <Button to="/contact" variant="secondary">
-              Talk to us <ArrowRight size={16} />
-            </Button>
-          </div>
         </Container>
       </section>
     </>
-  )
-}
-
-function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return (
-    <section className="relative overflow-hidden bg-radial">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
-      <Container className="relative py-20 lg:py-24">
-        <Reveal>
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">{eyebrow}</p>
-          <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-tight text-navy sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{description}</p>
-        </Reveal>
-      </Container>
-    </section>
   )
 }

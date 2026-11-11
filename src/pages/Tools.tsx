@@ -12,13 +12,34 @@ export function Tools() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Standalone tools"
-        title="Focused tools. Each one useful on its own."
-        description="Every tool solves one specific need and can be adopted without changing the rest of your process. Mix and match as you grow."
-      />
+      <section className="relative overflow-hidden pt-12 pb-24">
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-br from-blue/20 via-purple/15 to-teal/20 blur-3xl" />
+        <Container className="relative">
+          <Reveal>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">Standalone tools</p>
+              <h1 className="text-balance text-5xl font-semibold leading-[0.98] text-navy sm:text-6xl">
+                Focused tools. <span className="text-gradient">Each one useful on its own.</span>
+              </h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+                Every tool solves one specific need and can be adopted without changing the rest of your
+                process. Mix and match as you grow.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button to="/contact" variant="secondary" size="lg">
+                  Request a demo <ArrowRight size={18} />
+                </Button>
+                <Button to="/solutions" variant="outline" size="lg">
+                  See end-to-end solutions
+                </Button>
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
             <Reveal>
@@ -53,7 +74,7 @@ export function Tools() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="rounded-3xl border border-line bg-white p-8 shadow-soft">
+              <Card className="p-8">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green to-teal text-white">
                     <selected.icon size={22} />
@@ -64,7 +85,7 @@ export function Tools() {
                   </div>
                 </div>
                 <p className="mt-6 text-lg leading-relaxed text-muted">{selected.description}</p>
-                <div className="mt-6 rounded-xl bg-surface px-5 py-4">
+                <div className="mt-6 rounded-2xl bg-surface px-5 py-4">
                   <p className="text-xs font-semibold uppercase tracking-wide text-teal">Outcome</p>
                   <p className="mt-1 text-navy">{selected.outcome}</p>
                 </div>
@@ -81,13 +102,13 @@ export function Tools() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </Card>
             </Reveal>
           </div>
         </Container>
       </section>
 
-      <section className="bg-surface py-20">
+      <section className="bg-surface py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <Reveal>
@@ -120,7 +141,7 @@ export function Tools() {
         </Container>
       </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <Reveal>
             <SectionHeading
@@ -155,23 +176,6 @@ export function Tools() {
   )
 }
 
-function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return (
-    <section className="relative overflow-hidden bg-radial">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
-      <Container className="relative py-20 lg:py-24">
-        <Reveal>
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-teal">{eyebrow}</p>
-          <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-tight text-navy sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{description}</p>
-        </Reveal>
-      </Container>
-    </section>
-  )
-}
-
 function ExtractionVisual() {
   const rows = [
     ['Invoice 001', 'AED 12,400', 'Matched'],
@@ -180,14 +184,14 @@ function ExtractionVisual() {
     ['Invoice 004', 'AED 14,750', 'Matched'],
   ]
   return (
-    <div className="rounded-3xl border border-line bg-white p-6 shadow-soft">
+    <Card className="p-6">
       <div className="flex items-center justify-between">
         <p className="font-semibold text-navy">Extraction run</p>
         <span className="rounded-full bg-green/10 px-3 py-1 text-xs font-semibold text-green">4 documents</span>
       </div>
       <div className="mt-5 space-y-3">
         {rows.map(([name, amount, status]) => (
-          <div key={name} className="flex items-center justify-between rounded-xl bg-surface px-4 py-3">
+          <div key={name} className="flex items-center justify-between rounded-2xl bg-surface px-4 py-3">
             <div>
               <p className="text-sm font-medium text-navy">{name}</p>
               <p className="text-xs text-muted">{amount}</p>
@@ -202,6 +206,6 @@ function ExtractionVisual() {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   )
 }
